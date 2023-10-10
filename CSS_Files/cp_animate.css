@@ -1,0 +1,85 @@
+@charset "utf-8";
+
+/*
+   New Perspectives on HTML and CSS, 7th Edition
+   Tutorial 8
+   Tutorial Case
+
+   Cinema Penguin Styles for Animation
+   Author: 
+   Date:   
+
+   Filename: cp_animate.css
+
+*/
+ 
+/* Transition Styles */
+nav#topLinks a {
+   color: white;
+   font-size: 1em;
+   letter-spacing: 0em;
+   text-shadow: rgba(0, 0, 0, 1) 1px -1px 1px;
+   transition: color 1.5s ease-in 0.5s, 
+               font-size 2s ease,
+               letter-spacing 2s ease-out,
+               text-shadow 2s cubic-bezier(0.6, 0, 0.8, 0.5);
+}
+nav#topLinks a:hover {
+   color: darkgoldenrod;
+   font-size: 3em;
+   letter-spacing: 0.1em;
+   text-shadow: rgba(0, 0, 0, 0.5) 15px -3px 8px;
+}
+/* Key Frames Styles */
+@keyframes spin { /*name is w/e you'd like. here we use "spin" to name and describe*/
+   0% {transform: rotate(0deg);} /*Indicates what happens when keyframe starts (0%)*/
+   23% {transform: rotate(0deg);}
+   28% {transform: rotate(90deg);}
+   39% {transform: rotate(90deg);}
+   42% {transform: rotate(180deg);}
+   68% {transform: rotate(180deg);}
+   72% {transform: rotate(270deg);}
+   90% {transform: rotate(270deg);}
+   94% {transform: rotate(360deg);}
+   100% {transform: rotate(360deg);} /*Indicates what happens when keyframe ends (100%)*/ /*Key frame will make this change happen within the defined time in the specified element style selector.*/
+}
+
+
+/* Animation Styles */
+video {
+   /* animation: spin 4s linear infinite; */
+   animation-name: spin; /*calls previous created keyframe rule*/
+   animation-duration: 104.04s; /*104s because of matching the video length of 1:44. */
+   animation-timing-function: linear;
+   animation-iteration-count: infinite;
+}
+input#rotateVideo:checked~video { /*tilde indicates sibling element*/
+   animation-play-state: running; /*if rotateVideo is checked, run the animation*/
+}
+input#rotateVideo:not(:checked)~video {
+   animation-play-state: paused; /*if rotateVideo is not checked, pause animation*/
+}
+/* Animation Icon Styles */
+input#rotateVideo {
+   display: none; /*Turn off checkbox to add icons in following styling (using unicode)*/
+}
+input#rotateVideo:not(:checked)+label::after {/*plus indicates an adjacent element immediately following main selector. 'after' finds opening tag of element and adds styling after opening tag*/
+   content: "\21bb"; /*unicode character gets added when box isnt checked.*/
+}
+input#rotateVideo:checked+label::after {
+   content: "\270b";
+}
+label {
+   background-color: rgb(56, 87, 119);
+   border-radius: 65px;
+   color: rgba(255, 255, 255, 0.7); /*0.7 = 70% blur*/
+   display: block;
+   font-size: 35px;
+   font-weight: bold;
+   line-height: 50px;
+   margin: 10px, auto; /*10px top n bottom, auto left n right*/
+   position: relative; /*helps to adjust layering later in styles*/
+   text-align: center;
+   width: 50px;
+   z-index: 2; /*this property changes "distance" of element*/
+}
